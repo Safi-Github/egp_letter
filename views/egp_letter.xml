@@ -1,12 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
+    <record id="egp_execution_form_view" model="ir.ui.view">
+        <field name="name">egp.execution.form.view</field>
+        <field name="model">egp.letter.execution</field> <!-- Replace with your actual model -->
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="department_id" />
+                    <field name="name" widget="text"/>
+                    <!-- Add other fields as needed -->
+                </group>
+            </form>
+        </field>
+    </record>
+
     <record id="egp_letter_form_view" model="ir.ui.view">
         <field name="name">egp.letter.form.view</field>
         <field name="model">egp.letter</field>
         <field name="arch" type="xml">
             <form string="Letter">
                 <header >
-
                     <field name="state" widget="statusbar" statusbar_visible="draft,sent"/>
                 </header>
                 <sheet>
@@ -26,7 +39,7 @@
                     </group>
                     <notebook>
                         <page string="Executions">
-                            <field name="execution_ids">
+                            <field name="execution_ids" context="{'form_view_ref': 'egp_letter.egp.execution.form.view'}">
                                 <tree>
                                     <field name="name"/>
                                     <field name="department_id"/>
