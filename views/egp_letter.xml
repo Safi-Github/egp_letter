@@ -5,7 +5,7 @@
         <field name="model">egp.letter</field>
         <field name="arch" type="xml">
             <form string="Letter">
-                <header>
+                <header >
 
                     <field name="state" widget="statusbar" statusbar_visible="draft,sent"/>
                 </header>
