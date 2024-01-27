@@ -4,7 +4,6 @@ from odoo import fields, models, api
 class EgpLetter(models.Model):
     _name = "egp.letter"
     _description = "Letter"
-    _inherit = ['mail.thread']
 
     serial_number = fields.Char('Serial Number', required=True)
     date_issue = fields.Datetime('Issue Date', required=True)
@@ -16,3 +15,5 @@ class EgpLetter(models.Model):
     source_department_id = fields.Many2one('hr.department', string='Source Department',
                                            default=lambda self: self.env.user.department_id.id, required=True)
     state = fields.Selection([('draft', 'Draft'), ('sent', 'Sent')], string='Status', default='draft')
+
+    execution_ids = fields.One2many('egp.letter.execution', 'letter_id', string='Executions')
