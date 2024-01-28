@@ -12,12 +12,16 @@
 
         'views/main_menus.xml',
         'views/egp_letter.xml',
-
     ],
     "author": "MCIT_EGP_Team",
     "website": "https://mcit.gov.af/",
     "installable": True,
     "application": True,
+    'assets': {
+        'web.assets_backend': [
+            'egp_letter/static/src/custom_css.css',
+        ],
+    },
     "auto_install": False,
     "license": 'OPL-1',
 }

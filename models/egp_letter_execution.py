@@ -24,4 +24,3 @@ class EgpLetterExecution(models.Model):
             'target': 'new',
         }
 
-
