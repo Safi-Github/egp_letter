@@ -4,11 +4,15 @@
         <field name="name">egp.execution.form.view</field>
         <field name="model">egp.letter.execution</field> <!-- Replace with your actual model -->
         <field name="arch" type="xml">
-            <form options="{'buttons': [{'action': 'delete', 'string': 'Discard'}]}">
+            <form>
                 <group>
-                    <field name ="letter_id" />
+                    <field name="pathway" />
                     <field name="department_id" />
-                    <field name="name" widget="text"/>
+<!--                    <field name="sub_departments" />-->
+                    <field name="parent_id" invisible="1"/>
+                    <field name="child_ids" />
+                    <field name="userGet_id" invisible="1"/>
+                    <field name="name" widget="text" style="min-height: 100px;"/>
                     <!-- Add other fields as needed -->
                 </group>
             </form>
