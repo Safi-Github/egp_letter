@@ -16,15 +16,45 @@ class EgpLetterExecution(models.Model):
     department_id = fields.Many2one('hr.department',
                     string='Department',
                     store=True,
-                    domain="[('manager_id', '=', employeeGet_id)]")
+                    domain="department_domain")
+    department_domain = fields.Char('Department Domain', compute='_compute_department_domain')
+
+    departmentParent_id = fields.Many2one('hr.department', compute='_compute_parent_department')
     employeeGet_id = fields.Many2one('hr.employee', compute='_compute_user_department')
+    id_manager = fields.Many2one('hr.department', string='Manager id', compute='_compute_id_manager')
 
     @api.depends('userGet_id')
     def _compute_user_department(self):
         for record in self:
             employee = self.env['hr.employee'].search([('user_id', '=', record.userGet_id.id)], limit=1)
             record.employeeGet_id = employee.id
-    #
+
+    @api.depends('employeeGet_id')
+    def _compute_parent_department(self):
+        for record in self:
+            departments = self.env['hr.department'].search([('manager_id', '=', record.employeeGet_id.id)], limit=1)
+            print('department parent id', departments.parent_id.id)
+            record.departmentParent_id = departments.parent_id
+    @api.depends('employeeGet_id')
+    def _compute_id_manager(self):
+        for record in self:
+            manager = self.env['hr.department'].search([('manager_id', '=', record.employeeGet_id.id)], limit=1)
+            record.id_manager = manager.id
+            print('this is the manger id of id record',manager.id)
+    @api.depends('pathway')
+    def _compute_department_domain(self):
+        for record in self:
+            if record.pathway == 'up':
+                record.department_domain = [('parent_id', '=', record.departmentParent_id.id)]
+                print('check the domain data', record.department_domain)
+            elif record.pathway == 'down':
+                record.department_domain = [
+                    '|',
+                    ('manager_id', '=', record.employeeGet_id.id),
+                    ('parent_id', '=', record.id_manager.id)
+                ]
+                print('check the domain data', record.department_domain)
+
     # @api.depends('department_id')
     # def _compute_sub_department(self):
     #     domain=[]

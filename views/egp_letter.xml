@@ -8,6 +8,9 @@
                 <group>
                     <field name="pathway" />
                     <field name="department_id" />
+                    <field name="id_manager" invisible="1"/>
+                    <field name="departmentParent_id" invisible="1"/>
+                    <field name="department_domain" invisible="1"/>
 <!--                    <field name="parent_id" invisible="1"/>-->
 <!--                    <field name="child_ids" />-->
                     <field name="employeeGet_id" invisible="1"/>
