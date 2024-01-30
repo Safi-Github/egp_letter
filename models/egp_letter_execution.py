@@ -9,31 +9,21 @@ class EgpLetterExecution(models.Model):
     pathway = fields.Selection([('up', 'Up'), ('down', 'Down')], string='Pathway', default='up')
     name = fields.Char('Description')
     userGet_id = fields.Many2one('res.users', 'User', default=lambda self: self.env.user, invisible=True)
-    # employeeGet_id = fields.Many2one('hr.employee', 'Employee',domain="[('user_id', '=', userGet_id)]")
 
-    parent_id = fields.Many2one('hr.department', string='Parent Department', invisible=True)
-    child_ids = fields.One2many('hr.department', 'parent_id', string='Child Departments',domain="[('manager_id', '=', userGet_id)]")
+    # parent_id = fields.Many2one('hr.department', string='Parent Department', invisible=True)
+    # child_ids = fields.One2many('hr.department', 'parent_id', string='Child Departments')
 
     department_id = fields.Many2one('hr.department',
-                                    string='Department',
-                                    compute='_compute_user_department'
-                                    )
-    #
-    # sub_departments = fields.Many2one('hr.department',
-    #                                  string='sub departments Departments',
-    #                                  compute='_compute_sub_department'
-    #                                  )
-    #
-    # @api.onchange('basic_evaluation_id')
+                    string='Department',
+                    store=True,
+                    domain="[('manager_id', '=', employeeGet_id)]")
+    employeeGet_id = fields.Many2one('hr.employee', compute='_compute_user_department')
 
     @api.depends('userGet_id')
     def _compute_user_department(self):
         for record in self:
-            user_department = self.env['hr.department'].search([('manager_id', '=', record.userGet_id.id)])
-            if user_department:
-                record.department_id = user_department.id
-            else:
-                record.department_id = False
+            employee = self.env['hr.employee'].search([('user_id', '=', record.userGet_id.id)], limit=1)
+            record.employeeGet_id = employee.id
     #
     # @api.depends('department_id')
     # def _compute_sub_department(self):

@@ -8,8 +8,9 @@
                 <group>
                     <field name="pathway" />
                     <field name="department_id" />
-                    <field name="parent_id" invisible="1"/>
-                    <field name="child_ids" />
+<!--                    <field name="parent_id" invisible="1"/>-->
+<!--                    <field name="child_ids" />-->
+                    <field name="employeeGet_id" invisible="1"/>
                     <field name="userGet_id" invisible="1"/>
                     <field name="name" widget="text" style="min-height: 100px;"/>
                 </group>
