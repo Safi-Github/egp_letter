@@ -68,7 +68,8 @@
         <field name="arch" type="xml">
             <tree string="Letters">
                 <field name="name"/>
-                <field name="source_department_id"/>
+                <field name="serial_number"/>
+                <field name="date_issue"/>
             </tree>
         </field>
     </record>

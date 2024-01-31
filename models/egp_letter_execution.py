@@ -45,12 +45,12 @@ class EgpLetterExecution(models.Model):
     def _compute_department_domain(self):
         for record in self:
             if record.pathway == 'up':
-                record.department_domain = [('parent_id', '=', record.departmentParent_id.id)]
+                record.department_domain = [('id', '=', record.departmentParent_id.id)]
                 print('check the domain data', record.department_domain)
             elif record.pathway == 'down':
                 record.department_domain = [
-                    '|',
-                    ('manager_id', '=', record.employeeGet_id.id),
+                    # '|',
+                    # ('manager_id', '=', record.employeeGet_id.id),
                     ('parent_id', '=', record.id_manager.id)
                 ]
                 print('check the domain data', record.department_domain)
