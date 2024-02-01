@@ -73,6 +73,18 @@
             </tree>
         </field>
     </record>
+    <record id="egp_letter_execution_tree_view" model="ir.ui.view">
+        <field name="name">egp.letter.execution.tree.view</field>
+        <field name="model">egp.letter.execution</field>
+        <field name="arch" type="xml">
+            <tree string="Executions">
+                <field name="letter_id"/>
+                <field name="pathway"/>
+                <field name="department_id"/>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
 
     <record id="action_egp_letter" model="ir.actions.act_window">
         <field name="name">Letters</field>
@@ -81,11 +93,21 @@
         <field name="view_mode">tree,form</field>
     </record>
 
+    <record id="action_egp_letter_execution" model="ir.actions.act_window">
+        <field name="name">Executions</field>
+        <field name="res_model">egp.letter.execution</field>
+        <field name="binding_view_types">form</field>
+        <field name="view_mode">tree</field>
+    </record>
+
 
     <menuitem id="menu_letters"
               name='Letters'
               parent="main_menu_letter_management"
               sequence="10" action="action_egp_letter"/>
-
+    <menuitem id="menu_executions"
+              name='Executions'
+              parent="main_menu_letter_management"
+              sequence="20" action="action_egp_letter_execution"/>
 </odoo>
 
