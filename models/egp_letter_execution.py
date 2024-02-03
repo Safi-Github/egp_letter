@@ -8,6 +8,8 @@ class EgpLetterExecution(models.Model):
     letter_id = fields.Many2one('egp.letter', 'Letter')
     pathway = fields.Selection([('up', 'Up'), ('down', 'Down')], string='Pathway', default='up')
     name = fields.Char('Description')
+    number_warida = fields.Integer(string='Number Warida')
+    Tarikh_warida = fields.Datetime(string='Warida Date')
     userGet_id = fields.Many2one('res.users', default=lambda self: self.env.user)
 
     # parent_id = fields.Many2one('hr.department', string='Parent Department', invisible=True)

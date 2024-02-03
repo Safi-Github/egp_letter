@@ -6,6 +6,8 @@
         <field name="arch" type="xml">
             <form>
                 <group>
+                    <field name="number_warida" />
+                    <field name="Tarikh_warida" />
                     <field name="pathway" />
                     <field name="department_id" />
                     <field name="id_manager" invisible="1"/>
@@ -59,6 +61,18 @@
 
             </form>
 
+        </field>
+    </record>
+
+    //egp letter search view
+    <record id="egp_letter_search_view" model="ir.ui.view">
+        <field name="name">egp.letter.search.view</field>
+        <field name="model">egp.letter</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" string="Subject"
+                       filter_domain="['|', ('name','ilike',self),('serial_number','ilike',self)]"/>
+            </search>
         </field>
     </record>
 
