@@ -6,15 +6,15 @@
         <field name="arch" type="xml">
             <form>
                 <group>
-                    <field name="number_warida" />
-                    <field name="Tarikh_warida" />
-                    <field name="pathway" />
-                    <field name="department_id" />
+                    <field name="number_warida"/>
+                    <field name="Tarikh_warida"/>
+                    <field name="pathway"/>
+                    <field name="department_id"/>
                     <field name="id_manager" invisible="1"/>
                     <field name="departmentParent_id" invisible="1"/>
                     <field name="department_domain" invisible="1"/>
-<!--                    <field name="parent_id" invisible="1"/>-->
-<!--                    <field name="child_ids" />-->
+                    <!--                    <field name="parent_id" invisible="1"/>-->
+                    <!--                    <field name="child_ids" />-->
                     <field name="employeeGet_id" invisible="1"/>
                     <field name="userGet_id" invisible="1"/>
                     <field name="name" widget="text" style="min-height: 100px;"/>
@@ -28,7 +28,7 @@
         <field name="model">egp.letter</field>
         <field name="arch" type="xml">
             <form string="Letter">
-                <header >
+                <header>
                     <field name="state" widget="statusbar" statusbar_visible="draft,sent"/>
                 </header>
                 <sheet>
@@ -48,7 +48,8 @@
                     </group>
                     <notebook>
                         <page string="Executions">
-                            <field name="execution_ids" context="{'form_view_ref': 'egp_letter.egp.execution.form.view'}">
+                            <field name="execution_ids"
+                                   context="{'form_view_ref': 'egp_letter.egp.execution.form.view'}">
                                 <tree>
                                     <field name="name"/>
                                     <field name="department_id"/>
@@ -72,6 +73,10 @@
             <search>
                 <field name="name" string="Subject"
                        filter_domain="['|', ('name','ilike',self),('serial_number','ilike',self)]"/>
+                <searchpanel>
+                    <field name="state" string="Status" enable_counters="1" />
+                    <filter string="Custom Filter" name="custom_filter" select="multi" domain="[('id', '=', 2)]"/>
+                </searchpanel>
             </search>
         </field>
     </record>

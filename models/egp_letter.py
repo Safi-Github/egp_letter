@@ -17,3 +17,4 @@ class EgpLetter(models.Model):
     state = fields.Selection([('draft', 'Draft'), ('sent', 'Sent')], string='Status', default='draft')
 
     execution_ids = fields.One2many('egp.letter.execution', 'letter_id', string='Executions')
+
