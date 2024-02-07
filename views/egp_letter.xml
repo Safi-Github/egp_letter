@@ -6,6 +6,7 @@
         <field name="arch" type="xml">
             <form>
                 <group>
+
                     <field name="number_warida"/>
                     <field name="Tarikh_warida"/>
                     <field name="pathway"/>
@@ -41,7 +42,7 @@
                         </group>
                     </group>
                     <group>
-                        <field name="recipients" widget="many2many_tags"/>
+                        <field name="recipients"/>
                         <field name="carbon_copies" widget="many2many_tags"/>
                         <field name="name"/>
                         <field name="content"/>
@@ -74,8 +75,9 @@
                 <field name="name" string="Subject"
                        filter_domain="['|', ('name','ilike',self),('serial_number','ilike',self)]"/>
                 <searchpanel>
-                    <field name="state" string="Status" enable_counters="1" />
-                    <filter string="Custom Filter" name="custom_filter" select="multi" domain="[('id', '=', 2)]"/>
+<!--                    <field name="create_uid" String="Inbox and Outbox" select='multi' enable_counters="1" />-->
+<!--                    <field name="recipients" String="Inbox and Outbox" select='multi' enable_counters="1" />-->
+<!--                        <field name="mail" enable_counters="1"/>-->
                 </searchpanel>
             </search>
         </field>
