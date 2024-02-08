@@ -9,6 +9,7 @@
     "depends": ['base', 'mail', 'hr'],
     "data": [
         'security/ir.model.access.csv',
+        'security/security.xml',
 
         'views/main_menus.xml',
         'views/egp_letter.xml',
