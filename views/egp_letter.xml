@@ -79,6 +79,7 @@
 <!--                    <field name="recipients" String="Inbox and Outbox" select='multi' enable_counters="1" />-->
 <!--                    <field name="sent_count" string="Sent Emails" enable_counters="1"/>-->
                     <field name="mail" enable_counters="1"/>
+                    <field name="state" enable_counters="1"/>
                 </searchpanel>
             </search>
         </field>
