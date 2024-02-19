@@ -74,13 +74,6 @@
             <search>
                 <field name="name" string="Subject"
                        filter_domain="['|', ('name','ilike',self),('serial_number','ilike',self)]"/>
-                <searchpanel>
-<!--                    <field name="create_uid" string='Inbox and Outbox' select="multi" enable_counters="1"/>-->
-<!--                    <field name="recipients" String="Inbox and Outbox" select='multi' enable_counters="1" />-->
-<!--                    <field name="sent_count" string="Sent Emails" enable_counters="1"/>-->
-                    <field name="mail" enable_counters="1"/>
-                    <field name="state" enable_counters="1"/>
-                </searchpanel>
             </search>
         </field>
     </record>
@@ -90,9 +83,11 @@
         <field name="model">egp.letter</field>
         <field name="arch" type="xml">
             <tree string="Letters">
+<!--                <field name="department_id"/>-->
                 <field name="name"/>
                 <field name="serial_number"/>
                 <field name="date_issue"/>
+                <field name="department_id"/>
             </tree>
         </field>
     </record>
@@ -103,7 +98,6 @@
             <tree string="Executions">
                 <field name="letter_id"/>
                 <field name="pathway"/>
-                <field name="department_id"/>
                 <field name="name"/>
             </tree>
         </field>
@@ -123,6 +117,21 @@
         <field name="view_mode">tree</field>
     </record>
 
+    <record id="action_egp_letter_warida_tree_view" model="ir.actions.act_window">
+        <field name="name">Letters</field>
+        <field name="res_model">egp.letter</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('recipients', '=', 'model_egp_letter.get_domain')]</field>
+        <field name="view_id" ref="egp_letter_tree_view"/>
+    </record>
+
+    <record id="action_egp_letter_sadira_tree_view" model="ir.actions.act_window">
+        <field name="name">Letters</field>
+        <field name="res_model">egp.letter</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('create_uid', '=', uid)]</field>
+        <field name="view_id" ref="egp_letter_tree_view"/>
+    </record>
 
     <menuitem id="menu_letters"
               name='Letters'
@@ -132,5 +141,15 @@
               name='Executions'
               parent="main_menu_letter_management"
               sequence="20" action="action_egp_letter_execution"/>
+
+    <menuitem id="menu_warida"
+              name='Inbox'
+              parent="main_menu_letter_management"
+              sequence="30" action="action_egp_letter_warida_tree_view"/>
+
+    <menuitem id="menu_sadira"
+              name='Outbox'
+              parent="main_menu_letter_management"
+              sequence="40" action="action_egp_letter_sadira_tree_view"/>
 </odoo>
 

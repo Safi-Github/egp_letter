@@ -1,5 +1,6 @@
-from odoo import fields, models, api
+import self
 
+from odoo import fields, models, api
 
 class EgpLetter(models.Model):
     _name = "egp.letter"
@@ -18,26 +19,32 @@ class EgpLetter(models.Model):
 
     execution_ids = fields.One2many('egp.letter.execution', 'letter_id', string='Executions')
 
+    userGet_id = fields.Many2one('res.users', default=lambda self: self.env.user)
+
+    employeeGet_id = fields.Many2one('hr.employee', compute='_compute_user_empid')
+    department_id = fields.Many2one('hr.department', compute='_compute_department_id',default=2)
+    # department_id2 = fields.Integer(string='Department id 2',default=2)
+
+    field_name = fields.Selection([('inbox', 'Inbox')], string='Receives', compute='print_mail_field', store=True)
+    def _compute_user_empid(self):
+            employee = self.env['hr.employee'].search([('user_id', '=', self.env.user.id)], limit=1)
+            self.employeeGet_id = employee.id
+            print('the employee gotted id', self.employeeGet_id)
+
+    @api.depends('employeeGet_id')
+    def _compute_department_id(self):
+            departments = self.env['hr.department'].search([('manager_id', '=', self.employeeGet_id.id)], limit=1)
+            self.department_id = departments.id
+            print('department gotted id ', self.department_id)
+
+    @staticmethod
+    def get_domain():
+        # You can define your logic here to compute the domain dynamically
+        # For example, let's say you want to filter records where my_field is not empty
+        return 3
 
 
 
 
 
-    filtered_record = fields.Many2one('egp.letter', compute='_compute_filtered_record', string='Filtered Record', store=True)
-    #
-    # @api.depends('recipients')
-    # def _compute_filtered_record(self):
-    #     for record in self:
-    #         filtered_records = self.env['egp.letter'].search([('recipients', '=', 4)], limit=1)
-    #         record.filtered_record = filtered_records
 
-
-
-
-
-#     state_description = fields.Many2one('egp.letter', compute='_compute_state_get')
-# @api.depends('state')
-# def _compute_state_get(self):
-#     for record in self:
-#         fn_result = self.env['egp.letter'].search([('state', '=', 'draft')])
-#         record.state_description = fn_result

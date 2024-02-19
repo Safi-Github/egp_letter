@@ -6,6 +6,7 @@
     "summary": "EGP Letter Management Module",
     "category": "Human Resource",
     "description": "",
+    "sequence": -100,
     "depends": ['base', 'mail', 'hr'],
     "data": [
         'security/ir.model.access.csv',
