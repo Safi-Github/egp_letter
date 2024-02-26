@@ -83,11 +83,10 @@
         <field name="model">egp.letter</field>
         <field name="arch" type="xml">
             <tree string="Letters">
-<!--                <field name="department_id"/>-->
                 <field name="name"/>
                 <field name="serial_number"/>
                 <field name="date_issue"/>
-                <field name="department_id"/>
+                <field name="department_id" invisible="1" string=""/>
             </tree>
         </field>
     </record>
@@ -117,13 +116,14 @@
         <field name="view_mode">tree</field>
     </record>
 
-    <record id="action_egp_letter_warida_tree_view" model="ir.actions.act_window">
-        <field name="name">Letters</field>
-        <field name="res_model">egp.letter</field>
-        <field name="view_mode">tree,form</field>
-        <field name="domain">[('recipients', '=', 'model_egp_letter.get_domain')]</field>
-        <field name="view_id" ref="egp_letter_tree_view"/>
-    </record>
+        <record id="action_egp_letter_warida_tree_view" model="ir.actions.act_window">
+            <field name="name">Letters</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">egp.letter</field>
+            <!-- Call your Python function to set domain -->
+            <field name="context">{'default_desired_value': ''}</field>
+            <field name="domain">[('recipients', '=', context.get('default_desired_value'))]</field>
+        </record>
 
     <record id="action_egp_letter_sadira_tree_view" model="ir.actions.act_window">
         <field name="name">Letters</field>
