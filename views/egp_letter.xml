@@ -59,8 +59,6 @@
                         </page>
                     </notebook>
                 </sheet>
-
-
             </form>
 
         </field>
@@ -120,7 +118,6 @@
             <field name="name">Letters</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">egp.letter</field>
-            <!-- Call your Python function to set domain -->
             <field name="context">{'default_desired_value': ''}</field>
             <field name="domain">[('recipients', '=', context.get('default_desired_value'))]</field>
         </record>

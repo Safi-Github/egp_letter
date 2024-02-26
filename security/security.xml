@@ -21,7 +21,7 @@
         <field name="perm_create" eval="1"/>
         <field name="perm_unlink" eval="1"/>
     </record>
-
+    <!--  Development group-->
     <record model="res.groups" id="egp_letter_development_department">
         <field name="name">EGP Letter Development Department </field>
         <field name="category_id" ref="module_egp_letter"/>
@@ -37,9 +37,8 @@
         <field name="perm_create" eval="1"/>
         <field name="perm_unlink" eval="1"/>
     </record>
-
-
-     <record model="res.groups" id="egp_letter_analysis_department">
+    <!--  Analyse group-->
+    <record model="res.groups" id="egp_letter_analysis_department">
         <field name="name">EGP Letter Analysis Department </field>
         <field name="category_id" ref="module_egp_letter"/>
     </record>
@@ -54,6 +53,4 @@
         <field name="perm_create" eval="1"/>
         <field name="perm_unlink" eval="1"/>
     </record>
-
-
 </odoo>

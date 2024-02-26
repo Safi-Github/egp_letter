@@ -15,7 +15,6 @@ class EgpLetter(models.Model):
     source_department_id = fields.Many2one('hr.department', string='Source Department',
                                            default=lambda self: self.env.user.department_id.id, required=True)
     state = fields.Selection([('inbox', 'Inbox'), ('outbox', 'Outbox')], string='Receives', default='inbox')
-    mail = fields.Selection([('inbox', 'Inbox'), ('outbox', 'Outbox')], string='Sent', default='outbox')
 
     execution_ids = fields.One2many('egp.letter.execution', 'letter_id', string='Executions')
 
