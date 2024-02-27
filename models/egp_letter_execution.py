@@ -5,7 +5,7 @@ class EgpLetterExecution(models.Model):
     _name = 'egp.letter.execution'
     _description = 'Letter Execution'
 
-    letter_id = fields.Many2one('egp.letter', 'Letter')
+    letter_id = fields.Many2one('egp.letter.outbox', 'Letter')
     pathway = fields.Selection([('up', 'Up'), ('down', 'Down')], string='Pathway', default='up')
     name = fields.Char('Description')
     number_warida = fields.Integer(string='Number Warida')
@@ -56,32 +56,6 @@ class EgpLetterExecution(models.Model):
                     ('parent_id', '=', record.id_manager.id)
                 ]
                 print('check the domain data', record.department_domain)
-
-    # @api.depends('department_id')
-    # def _compute_sub_department(self):
-    #     domain=[]
-    #     print("test",self.department_id)
-    #     for rec in self:
-    #         print(rec.department_id)
-    #         domain = [('parent_id', '=', rec.department_id)]
-    #
-    #     return {'domain': {'sub_departments': domain}}
-
-    # @api.depends('user_id')
-    # def _compute_user_department(self):
-    #     for record in self:
-    #         user = self.env.user
-    #         user_department = self.env['hr.department'].search([('manager_id', '=', user.id)], limit=1)
-    #         record.department_id = user_department.id if user_department else False
-    #
-    # @api.depends('department_id')
-    # def _compute_sub_department(self):
-    #     for rec in self:
-    #         rec.sub_departments = False  # Ensure it's set to False if no sub-department found
-    #         if rec.department_id:
-    #             sub_department = self.env['hr.department'].search([('parent_id', '=', rec.department_id.id)], limit=1)
-    #             rec.sub_departments = sub_department.id if sub_department else False
-
 
 
 # added by Safiullah Danishjo

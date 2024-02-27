@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
+    //all form views
     <record id="egp_execution_form_view" model="ir.ui.view">
         <field name="name">egp.execution.form.view</field>
         <field name="model">egp.letter.execution</field> <!-- Replace with your actual model -->
         <field name="arch" type="xml">
             <form>
                 <group>
-
                     <field name="number_warida"/>
                     <field name="Tarikh_warida"/>
                     <field name="pathway"/>
@@ -24,13 +24,14 @@
         </field>
     </record>
 
-    <record id="egp_letter_form_view" model="ir.ui.view">
-        <field name="name">egp.letter.form.view</field>
-        <field name="model">egp.letter</field>
+    <record id="egp_letter_outbox_form_view" model="ir.ui.view">
+        <field name="name">egp.letter.outbox.form.view</field>
+        <field name="model">egp.letter.outbox</field>
         <field name="arch" type="xml">
             <form string="Letter">
                 <header>
-                    <field name="state" widget="statusbar" statusbar_visible="draft,sent"/>
+                    <field name="state" widget="statusbar" nolabel="1"
+                           options="{'clickable':'1'}"/>
                 </header>
                 <sheet>
                     <group>
@@ -60,14 +61,13 @@
                     </notebook>
                 </sheet>
             </form>
-
         </field>
     </record>
 
-    //egp letter search view
-    <record id="egp_letter_search_view" model="ir.ui.view">
-        <field name="name">egp.letter.search.view</field>
-        <field name="model">egp.letter</field>
+    //all the search views
+    <record id="egp_letter_outbox_search_view" model="ir.ui.view">
+        <field name="name">egp.letter.outbox.search.view</field>
+        <field name="model">egp.letter.outbox</field>
         <field name="arch" type="xml">
             <search>
                 <field name="name" string="Subject"
@@ -76,15 +76,17 @@
         </field>
     </record>
 
-    <record id="egp_letter_tree_view" model="ir.ui.view">
-        <field name="name">egp.letter.tree.view</field>
-        <field name="model">egp.letter</field>
+    //all tree views
+    <record id="egp_letter_outbox_tree_view" model="ir.ui.view">
+        <field name="name">egp.letter.outbox.tree.view</field>
+        <field name="model">egp.letter.outbox</field>
         <field name="arch" type="xml">
             <tree string="Letters">
                 <field name="name"/>
                 <field name="serial_number"/>
                 <field name="date_issue"/>
                 <field name="department_id" invisible="1" string=""/>
+                <field name="state"/>
             </tree>
         </field>
     </record>
@@ -99,54 +101,37 @@
             </tree>
         </field>
     </record>
-
-    <record id="action_egp_letter" model="ir.actions.act_window">
+    //all the actions
+    <record id="action_egp_letter_outbox_tree_view" model="ir.actions.act_window">
         <field name="name">Letters</field>
-        <field name="res_model">egp.letter</field>
-        <field name="binding_view_types">form</field>
+        <field name="res_model">egp.letter.outbox</field>
         <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="view_id" ref="egp_letter_outbox_tree_view"/>
     </record>
-
     <record id="action_egp_letter_execution" model="ir.actions.act_window">
         <field name="name">Executions</field>
         <field name="res_model">egp.letter.execution</field>
         <field name="binding_view_types">form</field>
         <field name="view_mode">tree</field>
     </record>
+<!--    <record id="action_egp_letter_warida_tree_view" model="ir.actions.act_window">-->
+<!--        <field name="name">Letters</field>-->
+<!--        <field name="type">ir.actions.act_window</field>-->
+<!--        <field name="res_model">egp.letter</field>-->
+<!--        <field name="context">{'default_desired_value': ''}</field>-->
+<!--        <field name="domain">[('recipients', '=', context.get('default_desired_value'))]</field>-->
+<!--    </record>-->
 
-        <record id="action_egp_letter_warida_tree_view" model="ir.actions.act_window">
-            <field name="name">Letters</field>
-            <field name="type">ir.actions.act_window</field>
-            <field name="res_model">egp.letter</field>
-            <field name="context">{'default_desired_value': ''}</field>
-            <field name="domain">[('recipients', '=', context.get('default_desired_value'))]</field>
-        </record>
+    //all menus
 
-    <record id="action_egp_letter_sadira_tree_view" model="ir.actions.act_window">
-        <field name="name">Letters</field>
-        <field name="res_model">egp.letter</field>
-        <field name="view_mode">tree,form</field>
-        <field name="domain">[('create_uid', '=', uid)]</field>
-        <field name="view_id" ref="egp_letter_tree_view"/>
-    </record>
-
-    <menuitem id="menu_letters"
-              name='Letters'
-              parent="main_menu_letter_management"
-              sequence="10" action="action_egp_letter"/>
     <menuitem id="menu_executions"
               name='Executions'
               parent="main_menu_letter_management"
-              sequence="20" action="action_egp_letter_execution"/>
-
-    <menuitem id="menu_warida"
-              name='Inbox'
+              sequence="10" action="action_egp_letter_execution"/>
+    <menuitem id="menu_outbox"
+              name='Egp Outbox'
               parent="main_menu_letter_management"
-              sequence="30" action="action_egp_letter_warida_tree_view"/>
-
-    <menuitem id="menu_sadira"
-              name='Outbox'
-              parent="main_menu_letter_management"
-              sequence="40" action="action_egp_letter_sadira_tree_view"/>
+              sequence="20" action="action_egp_letter_outbox_tree_view"/>
 </odoo>
 
