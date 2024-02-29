@@ -30,8 +30,7 @@
         <field name="arch" type="xml">
             <form string="Letter">
                 <header>
-                    <field name="state" widget="statusbar" nolabel="1"
-                           options="{'clickable':'1'}"/>
+                    <field name="state" widget="statusbar" nolabel="1"/>
                 </header>
                 <sheet>
                     <group>
@@ -47,6 +46,32 @@
                         <field name="carbon_copies" widget="many2many_tags"/>
                         <field name="name"/>
                         <field name="content"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="egp_letter_inbox_form_view" model="ir.ui.view">
+        <field name="name">egp.letter.inbox.form.view</field>
+        <field name="model">egp.letter.inbox</field>
+        <field name="arch" type="xml">
+            <form string="Letter">
+                <header>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="serial_number" readonly="True"/>
+                        </group>
+                        <group>
+                            <field name="date_issue" readonly="True"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="recipients" readonly="True"/>
+                        <field name="carbon_copies" widget="many2many_tags" readonly="True"/>
+                        <field name="name" readonly="True"/>
+                        <field name="content" readonly="True"/>
                     </group>
                     <notebook>
                         <page string="Executions">
@@ -77,6 +102,17 @@
     </record>
 
     //all tree views
+    <record id="egp_letter_inbox_tree_view" model="ir.ui.view">
+        <field name="name">egp.letter.inbox.tree.view</field>
+        <field name="model">egp.letter.inbox</field>
+        <field name="arch" type="xml">
+            <tree string="Letters">
+                <field name="name"/>
+                <field name="serial_number"/>
+                <field name="date_issue"/>
+            </tree>
+        </field>
+    </record>
     <record id="egp_letter_outbox_tree_view" model="ir.ui.view">
         <field name="name">egp.letter.outbox.tree.view</field>
         <field name="model">egp.letter.outbox</field>
@@ -85,8 +121,9 @@
                 <field name="name"/>
                 <field name="serial_number"/>
                 <field name="date_issue"/>
-                <field name="department_id" invisible="1" string=""/>
                 <field name="state"/>
+                <field name="department_id" invisible="1" string=""/>
+                <field name="recipients"/>
             </tree>
         </field>
     </record>
@@ -102,12 +139,21 @@
         </field>
     </record>
     //all the actions
+    <record id="action_egp_letter_inbox_tree_view" model="ir.actions.act_window">
+        <field name="name">Letters</field>
+        <field name="res_model">egp.letter.inbox</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="view_id" ref="egp_letter_inbox_tree_view"/>
+        <field name="views">[(False, 'tree'), (ref('egp_letter_inbox_form_view'), 'form')]</field>
+    </record>
     <record id="action_egp_letter_outbox_tree_view" model="ir.actions.act_window">
         <field name="name">Letters</field>
         <field name="res_model">egp.letter.outbox</field>
         <field name="view_mode">tree,form</field>
         <field name="domain">[]</field>
         <field name="view_id" ref="egp_letter_outbox_tree_view"/>
+        <field name="views">[(False, 'tree'), (ref('egp_letter_outbox_form_view'), 'form')]</field>
     </record>
     <record id="action_egp_letter_execution" model="ir.actions.act_window">
         <field name="name">Executions</field>
@@ -115,6 +161,7 @@
         <field name="binding_view_types">form</field>
         <field name="view_mode">tree</field>
     </record>
+
 <!--    <record id="action_egp_letter_warida_tree_view" model="ir.actions.act_window">-->
 <!--        <field name="name">Letters</field>-->
 <!--        <field name="type">ir.actions.act_window</field>-->
@@ -129,9 +176,13 @@
               name='Executions'
               parent="main_menu_letter_management"
               sequence="10" action="action_egp_letter_execution"/>
-    <menuitem id="menu_outbox"
-              name='Egp Outbox'
+    <menuitem id="menu_inbox"
+              name='Inbox'
               parent="main_menu_letter_management"
-              sequence="20" action="action_egp_letter_outbox_tree_view"/>
+              sequence="20" action="action_egp_letter_inbox_tree_view"/>
+    <menuitem id="menu_outbox"
+              name='Outbox'
+              parent="main_menu_letter_management"
+              sequence="30" action="action_egp_letter_outbox_tree_view"/>
 </odoo>
 
