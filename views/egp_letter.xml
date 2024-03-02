@@ -30,6 +30,9 @@
         <field name="arch" type="xml">
             <form string="Letter">
                 <header>
+                    <button name="adding_record_to_inbox_model" string="Send" type="object"
+                        class="oe_highlight"/>
+<!--                        invisible="[('state', '!=', 'draft')]" -->
                     <field name="state" widget="statusbar" nolabel="1"/>
                 </header>
                 <sheet>
@@ -102,6 +105,18 @@
     </record>
 
     //all tree views
+    <record id="egp_letter_Deaprtment_and_Context_tree_view" model="ir.ui.view">
+        <field name="name">egp.letter.inbox.tree.view</field>
+        <field name="model">egp.letter.inbox</field>
+        <field name="arch" type="xml">
+            <tree string="Letters">
+                <field name="name"/>
+                <field name="serial_number"/>
+                <field name="date_issue"/>
+                <field name="department_id" invisible="1" string=""/>
+            </tree>
+        </field>
+    </record>
     <record id="egp_letter_inbox_tree_view" model="ir.ui.view">
         <field name="name">egp.letter.inbox.tree.view</field>
         <field name="model">egp.letter.inbox</field>
@@ -122,7 +137,6 @@
                 <field name="serial_number"/>
                 <field name="date_issue"/>
                 <field name="state"/>
-                <field name="department_id" invisible="1" string=""/>
                 <field name="recipients"/>
             </tree>
         </field>
@@ -155,6 +169,13 @@
         <field name="view_id" ref="egp_letter_outbox_tree_view"/>
         <field name="views">[(False, 'tree'), (ref('egp_letter_outbox_form_view'), 'form')]</field>
     </record>
+    <record id="action_egp_letter_getDepartmentAndUpdateContest_tree_view" model="ir.actions.act_window">
+        <field name="name">Letters</field>
+        <field name="res_model">egp.letter.inbox</field>
+        <field name="view_mode">tree</field>
+        <field name="domain">[]</field>
+        <field name="view_id" ref="egp_letter_Deaprtment_and_Context_tree_view"/>
+    </record>
     <record id="action_egp_letter_execution" model="ir.actions.act_window">
         <field name="name">Executions</field>
         <field name="res_model">egp.letter.execution</field>
@@ -184,5 +205,10 @@
               name='Outbox'
               parent="main_menu_letter_management"
               sequence="30" action="action_egp_letter_outbox_tree_view"/>
+    <menuitem id="get_dep_id_and_update_context"
+              name='Get Department and Update Context'
+              parent="main_menu_letter_management"
+              sequence="40" action="action_egp_letter_getDepartmentAndUpdateContest_tree_view"/>
+
 </odoo>
 

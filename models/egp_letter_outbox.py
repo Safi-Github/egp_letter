@@ -16,22 +16,20 @@ class EgpLetterOutbox(models.Model):
 
     execution_ids = fields.One2many('egp.letter.execution', 'letter_id', string='Executions')
 
-
-    employeeGet_id = fields.Many2one('hr.employee', compute='_compute_user_empid')
-    department_id = fields.Many2one('hr.department', compute='_compute_department_id')
-    def _compute_user_empid(self):
-            employee = self.env['hr.employee'].search([('user_id', '=', self.env.user.id)], limit=1)
-            self.employeeGet_id = employee.id
-            print('the employee gotted id', self.employeeGet_id)
-    @api.depends('employeeGet_id')
-    def _compute_department_id(self):
-            departments = self.env['hr.department'].search([('manager_id', '=', self.employeeGet_id.id)], limit=1)
-            self.department_id = departments.id
-            print('department gotted id ', self.department_id)
-
-            # action = self.env.ref('egp_letter.action_egp_letter_inbox_tree_view')
-            # computed_value = self.department_id.id
-            # action.write({'context': {'default_desired_value': computed_value}})
-
-
+    def adding_record_to_inbox_model(self):
+        if self.state == 'draft':
+            ModelB = self.env['egp.letter.inbox']
+            ModelB.create({
+            'serial_number': self.serial_number,
+            'date_issue': self.date_issue,
+            'recipients': self.recipients.id,  # Pass the ID of the hr.department record
+            'carbon_copies': [(6, 0, self.carbon_copies.ids)],  # Pass the IDs of the res.partner records
+            'name': self.name,
+            'content': self.content,
+            # 'source_department_id': self.source_department_id.id,
+            'state': 'receive',
+            'execution_ids': [(6, 0, self.execution_ids.ids)],  # Pass the IDs of the egp.letter.execution records
+        })
+        self.state = 'send'
+        print("adding record to inbox model", self.state)
 
