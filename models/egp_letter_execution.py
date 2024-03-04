@@ -62,6 +62,7 @@ class EgpLetterExecution(models.Model):
 '@api.multi'
 def action_add_line(self):
     view_id = self.env.ref('egp_letter.egp.execution.form.view').id  # Replace with your actual view ID
+    print('this is the execution view id',view_id)
     return {
         'name': 'Add a Line',
         'type': 'ir.actions.act_window',

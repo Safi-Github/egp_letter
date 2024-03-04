@@ -1,0 +1,24 @@
+<odoo>
+<!--    <record id="egp_letter_inbox_tree_view" model="ir.ui.view">-->
+<!--        <field name="name">egp.letter.inbox.tree.view</field>-->
+<!--        <field name="model">egp.letter.inbox</field>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <tree string="Letters">-->
+<!--                <field name="name"/>-->
+<!--                <field name="serial_number"/>-->
+<!--                <field name="date_issue"/>-->
+<!--                <field name="recipients"/>-->
+<!--                <field name="department_id" invisible="1" string=""/>-->
+<!--            </tree>-->
+<!--        </field>-->
+<!--    </record>-->
+
+<!--    <record id="action_egp_letter_inbox_tree_view" model="ir.actions.act_window">-->
+<!--        <field name="name">Letters</field>-->
+<!--        <field name="res_model">egp.letter.inbox</field>-->
+<!--        <field name="view_mode">tree,form</field>-->
+<!--        <field name="domain">[]</field>-->
+<!--        <field name="view_id" ref="egp_letter_inbox_tree_view"/>-->
+<!--        <field name="views">[(False, 'tree'), (ref('egp_letter_inbox_form_view'), 'form')]</field>-->
+<!--    </record>-->
+</odoo>

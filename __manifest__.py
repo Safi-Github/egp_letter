@@ -11,7 +11,7 @@
     "data": [
         'security/ir.model.access.csv',
         'security/security.xml',
-
+        'wizard/egp_letter_inbox_wizard.xml',
         'views/main_menus.xml',
         'views/egp_letter.xml',
     ],

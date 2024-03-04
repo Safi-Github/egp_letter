@@ -33,3 +33,7 @@ class EgpLetterOutbox(models.Model):
         self.state = 'send'
         print("adding record to inbox model", self.state)
 
+    # def test(self):
+    #     print('Hi, This is the test function')
+    #     action = self.env.ref('egp_letter.action_egp_letter_inbox_tree_view').read()[0]
+    #     return action
