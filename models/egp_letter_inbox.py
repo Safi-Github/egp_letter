@@ -35,6 +35,17 @@ class EgpLetterInbox(models.Model):
             action.write({'context': {'default_desired_value': computed_value}})
 
 
+    def open_custom_window(self):
+        employee = self.env['hr.employee'].search([('user_id', '=', self.env.user.id)], limit=1)
+        print('the employee gotted id', employee.id)
 
+        departments = self.env['hr.department'].search([('manager_id', '=', employee.id)], limit=1)
+        print('department gotted id ', departments.id)
+
+        action = self.env.ref('egp_letter.action_egp_letter_inbox_tree_view')
+        computed_value = departments.id
+        action.write({'context': {'default_desired_value': computed_value}})
+
+        return self.env.ref('egp_letter.action_egp_letter_inbox_tree_view')
 
 

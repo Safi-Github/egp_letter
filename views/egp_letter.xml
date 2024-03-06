@@ -174,6 +174,14 @@
         <field name="views">[(False, 'tree'), (ref('egp_letter_outbox_form_view'), 'form')]</field>
     </record>
     //server action
+    <record id="get_myDepartmentId_and_updateContext" model="ir.actions.server">
+        <field name="name">Execute Multiple Actions</field>
+        <field name="model_id" ref="egp_letter.model_egp_letter_inbox"/> <!-- Replace 'egp_letter.model_egp_letter_inbox' with the actual model ID -->
+        <field name="state">code</field>
+        <field name="code">
+            model.open_custom_window()
+        </field>
+    </record>
     <record id="action_egp_letter_execution" model="ir.actions.act_window">
         <field name="name">Executions</field>
         <field name="res_model">egp.letter.execution</field>
@@ -195,7 +203,10 @@
               name='Outbox'
               parent="main_menu_letter_management"
               sequence="30" action="action_egp_letter_outbox_tree_view"/>
-
+    <menuitem id="get_dep_id_and_update_context"
+              name='Get Department and Update Context'
+              parent="main_menu_letter_management"
+              sequence="40" action="get_myDepartmentId_and_updateContext"/>
 
 </odoo>
 

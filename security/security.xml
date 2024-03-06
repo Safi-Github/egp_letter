@@ -56,14 +56,14 @@
 
 
 
-     <record id="egp_letter_admin_inbox_records" model="ir.rule">
-        <field name="name">egp letter admin inbox records</field>
-        <field name="model_id" ref="egp_letter.model_egp_letter_inbox"/>
-        <field name="domain_force">['domain_force']</field>
-<!--        <field name="groups" eval="[(4, ref('egp_letter_mis_admin'))]"/>-->
-        <field name="perm_read" eval="1"/>
-        <field name="perm_write" eval="1"/>
-        <field name="perm_create" eval="1"/>
-        <field name="perm_unlink" eval="1"/>
-    </record>
+<!--     <record id="egp_letter_admin_inbox_records" model="ir.rule">-->
+<!--        <field name="name">egp letter admin inbox records</field>-->
+<!--        <field name="model_id" ref="egp_letter.model_egp_letter_inbox"/>-->
+<!--        <field name="domain_force">['domain_force']</field>-->
+<!--&lt;!&ndash;        <field name="groups" eval="[(4, ref('egp_letter_mis_admin'))]"/>&ndash;&gt;-->
+<!--        <field name="perm_read" eval="1"/>-->
+<!--        <field name="perm_write" eval="1"/>-->
+<!--        <field name="perm_create" eval="1"/>-->
+<!--        <field name="perm_unlink" eval="1"/>-->
+<!--    </record>-->
 </odoo>
