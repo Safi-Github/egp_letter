@@ -105,18 +105,19 @@
     </record>
 
     //all tree views
-    <record id="egp_letter_Deaprtment_and_Context_tree_view" model="ir.ui.view">
-        <field name="name">egp.letter.inbox.tree.view</field>
-        <field name="model">egp.letter.inbox</field>
-        <field name="arch" type="xml">
-            <tree string="Letters">
-                <field name="name"/>
-                <field name="serial_number"/>
-                <field name="date_issue"/>
-                <field name="department_id" invisible="1" string=""/>
-            </tree>
-        </field>
-    </record>
+<!--    <record id="egp_letter_Deaprtment_and_Context_tree_view" model="ir.ui.view">-->
+<!--        <field name="name">egp.letter.inbox.tree.view</field>-->
+<!--        <field name="model">egp.letter.inbox</field>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <tree string="Letters">-->
+<!--                <field name="name"/>-->
+<!--                <field name="serial_number"/>-->
+<!--                <field name="date_issue"/>-->
+<!--                <field name="department_id" string="hello"/>-->
+<!--&lt;!&ndash;                <field name="department_ids" />&ndash;&gt;-->
+<!--            </tree>-->
+<!--        </field>-->
+<!--    </record>-->
     <record id="egp_letter_inbox_tree_view" model="ir.ui.view">
         <field name="name">egp.letter.inbox.tree.view</field>
         <field name="model">egp.letter.inbox</field>
@@ -125,7 +126,7 @@
                 <field name="name"/>
                 <field name="serial_number"/>
                 <field name="date_issue"/>
-                <field name="department_id" invisible="1"/>
+                <field name="department_id" string="hello"/>
                 <field name="recipients" />
             </tree>
         </field>
@@ -172,28 +173,13 @@
         <field name="view_id" ref="egp_letter_outbox_tree_view"/>
         <field name="views">[(False, 'tree'), (ref('egp_letter_outbox_form_view'), 'form')]</field>
     </record>
-    <record id="get_myDepartmentId_and_updateContext" model="ir.actions.server">
-        <field name="name">Execute Multiple Actions</field>
-        <field name="model_id" ref="egp_letter.model_egp_letter_inbox"/> <!-- Replace 'egp_letter.model_egp_letter_inbox' with the actual model ID -->
-        <field name="state">code</field>
-        <field name="code">
-            model.open_custom_window()
-        </field>
-    </record>
+    //server action
     <record id="action_egp_letter_execution" model="ir.actions.act_window">
         <field name="name">Executions</field>
         <field name="res_model">egp.letter.execution</field>
         <field name="binding_view_types">form</field>
         <field name="view_mode">tree</field>
     </record>
-
-<!--    <record id="action_egp_letter_warida_tree_view" model="ir.actions.act_window">-->
-<!--        <field name="name">Letters</field>-->
-<!--        <field name="type">ir.actions.act_window</field>-->
-<!--        <field name="res_model">egp.letter</field>-->
-<!--        <field name="context">{'default_desired_value': ''}</field>-->
-<!--        <field name="domain">[('recipients', '=', context.get('default_desired_value'))]</field>-->
-<!--    </record>-->
 
     //all menus
 
@@ -209,10 +195,7 @@
               name='Outbox'
               parent="main_menu_letter_management"
               sequence="30" action="action_egp_letter_outbox_tree_view"/>
-    <menuitem id="get_dep_id_and_update_context"
-              name='Get Department and Update Context'
-              parent="main_menu_letter_management"
-              sequence="70" action="get_myDepartmentId_and_updateContext"/>
+
 
 </odoo>
 

@@ -3,4 +3,4 @@ access_egp_letter,egp.letter,model_egp_letter,base.group_user,1,1,1,1
 access_egp_letter_outbox,egp.letter.outbox,model_egp_letter_outbox,base.group_user,1,1,1,1
 access_egp_letter_inbox,egp.letter.inbox,model_egp_letter_inbox,base.group_user,1,1,1,1
 access_egp_letter_execution,egp.letter.execution,model_egp_letter_execution,base.group_user,1,1,1,1
-access_egp_letter_open_window,egp.letter.open.window,model_egp_letter_open_window,base.group_user,1,1,1,1
+

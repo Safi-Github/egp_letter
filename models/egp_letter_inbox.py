@@ -15,9 +15,9 @@ class EgpLetterInbox(models.Model):
 
     execution_ids = fields.One2many('egp.letter.execution', 'letter_id', string='Executions')
 
-
     employeeGet_id = fields.Many2one('hr.employee', compute='_compute_user_empid')
-    department_id = fields.Many2one('hr.department',compute='_compute_department_id',default=2)
+    department_id = fields.Many2one('hr.department',compute='_compute_department_id')
+
     def _compute_user_empid(self):
             employee = self.env['hr.employee'].search([('user_id', '=', self.env.user.id)], limit=1)
             self.employeeGet_id = employee.id
@@ -29,20 +29,12 @@ class EgpLetterInbox(models.Model):
             self.department_id = departments.id
             print('department gotted id ', self.department_id)
 
+
             action = self.env.ref('egp_letter.action_egp_letter_inbox_tree_view')
             computed_value = self.department_id.id
             action.write({'context': {'default_desired_value': computed_value}})
 
 
-    def open_custom_window(self):
-        employee = self.env['hr.employee'].search([('user_id', '=', self.env.user.id)], limit=1)
-        print('the employee gotted id', employee.id)
 
-        departments = self.env['hr.department'].search([('manager_id', '=', employee.id)], limit=1)
-        print('department gotted id ', departments.id)
-
-        action = self.env.ref('egp_letter.action_egp_letter_inbox_tree_view')
-        computed_value = departments.id
-        action.write({'context': {'default_desired_value': computed_value}})
 
 
