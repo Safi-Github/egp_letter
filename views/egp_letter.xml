@@ -126,7 +126,6 @@
                 <field name="name"/>
                 <field name="serial_number"/>
                 <field name="date_issue"/>
-                <field name="department_id" string="hello"/>
                 <field name="recipients" />
             </tree>
         </field>
@@ -179,7 +178,7 @@
         <field name="model_id" ref="egp_letter.model_egp_letter_inbox"/> <!-- Replace 'egp_letter.model_egp_letter_inbox' with the actual model ID -->
         <field name="state">code</field>
         <field name="code">
-            model.open_custom_window()
+            model.menu_function()
         </field>
     </record>
     <record id="action_egp_letter_execution" model="ir.actions.act_window">

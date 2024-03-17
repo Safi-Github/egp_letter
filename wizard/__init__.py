@@ -1,1 +1,1 @@
-from . import egp_letter_inbox_wizard
+from .import window_action

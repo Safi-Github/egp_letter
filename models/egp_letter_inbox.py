@@ -1,4 +1,4 @@
-from odoo import fields, models, api
+from odoo import fields, models, _, api
 class EgpLetterInbox(models.Model):
     _name = "egp.letter.inbox"
     _description = "Inbox Letter"
@@ -48,4 +48,19 @@ class EgpLetterInbox(models.Model):
 
         return self.env.ref('egp_letter.action_egp_letter_inbox_tree_view')
 
+    '@api.multi'
+    def menu_function(self):
+        print("this is the epg.letter.inbox py file")
+        wizard_action = self.env['call_window_action'].create({})
+        wizard_action.open_custom()
+        print(wizard_action)
+        return {
+                'name': _('Open My Wizard'),
+                'type': 'ir.actions.act_window',
+                'view_type': 'form',
+                'view_mode': 'form',
+                'res_model': 'call_window_action',
+                'res_id': wizard_action.id,
+                'target': 'new',  # Open in a new window
+            }
 
