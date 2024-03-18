@@ -17,12 +17,18 @@ class EgpLetterOutbox(models.Model):
     execution_ids = fields.One2many('egp.letter.execution', 'letter_id', string='Executions')
 
     def adding_record_to_inbox_model(self):
+        employee = self.env['hr.employee'].search([('user_id', '=', self.env.user.id)], limit=1)
+        print('the employee gotted id', employee.id)
+        departments = self.env['hr.department'].search([('manager_id', '=', employee.id)], limit=1)
+        print('department gotted id ', departments.id)
+
         if self.state == 'draft':
             ModelB = self.env['egp.letter.inbox']
             ModelB.create({
             'serial_number': self.serial_number,
             'date_issue': self.date_issue,
             'recipients': self.recipients.id,  # Pass the ID of the hr.department record
+            'sender': departments.id,
             'carbon_copies': [(6, 0, self.carbon_copies.ids)],  # Pass the IDs of the res.partner records
             'name': self.name,
             'content': self.content,
