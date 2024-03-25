@@ -151,8 +151,12 @@
         <field name="arch" type="xml">
             <tree string="Executions">
                 <field name="letter_id"/>
-                <field name="pathway"/>
+                <field name="related_content"/>
+                <field name="related_serial_number"/>
                 <field name="name"/>
+                <field name="related_assigner" string="Assigned By"/>
+                <field name="department_id"/>
+                <field name="state"/>
             </tree>
         </field>
     </record>
@@ -186,8 +190,10 @@
     <record id="action_egp_letter_execution" model="ir.actions.act_window">
         <field name="name">Executions</field>
         <field name="res_model">egp.letter.execution</field>
-        <field name="binding_view_types">form</field>
-        <field name="view_mode">tree</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="view_id" ref="egp_letter_execution_tree_view"/>
+        <field name="views">[(False, 'tree'), (ref('egp_letter_inbox_form_view'), 'form')]</field>
     </record>
 
     //all menus

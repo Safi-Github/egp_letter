@@ -5,18 +5,21 @@ class EgpLetterExecution(models.Model):
     _name = 'egp.letter.execution'
     _description = 'Letter Execution'
 
-    letter_id = fields.Many2one('egp.letter.outbox', 'Letter')
+    letter_id = fields.Many2one('egp.letter.inbox', 'Letter')
+    related_serial_number = fields.Char(related='letter_id.serial_number')
+    related_content = fields.Html(related='letter_id.content')
+    related_assigner = fields.Many2one('hr.department',related='letter_id.recipients')
     pathway = fields.Selection([('up', 'Up'), ('down', 'Down')], string='Pathway', default='up')
     name = fields.Char('Description')
     number_warida = fields.Integer(string='Number Warida')
     Tarikh_warida = fields.Datetime(string='Warida Date')
-    userGet_id = fields.Many2one('res.users', default=lambda self: self.env.user)
-
+    userGet_id = fields.Many2one('res.users', default=lambda self: self.env.user, store=False)
     # parent_id = fields.Many2one('hr.department', string='Parent Department', invisible=True)
     # child_ids = fields.One2many('hr.department', 'parent_id', string='Child Departments')
+    state = fields.Selection([('draft', 'Draft'),('done', 'Done')],  default='draft')
 
     department_id = fields.Many2one('hr.department',
-                    string='Department',
+                    string='Assigned To',
                     store=True,
                     domain="department_domain")
     department_domain = fields.Char('Department Domain', compute='_compute_department_domain')
@@ -28,7 +31,7 @@ class EgpLetterExecution(models.Model):
     @api.depends('userGet_id')
     def _compute_user_department(self):
         for record in self:
-            employee = self.env['hr.employee'].search([('user_id', '=', record.userGet_id.id)], limit=1)
+            employee = self.env['hr.employee'].search([('user_id', '=', self.userGet_id.id)], limit=1)
             record.employeeGet_id = employee.id
 
     @api.depends('employeeGet_id')
@@ -56,7 +59,6 @@ class EgpLetterExecution(models.Model):
                     ('parent_id', '=', record.id_manager.id)
                 ]
                 print('check the domain data', record.department_domain)
-
 
 # added by Safiullah Danishjo
 '@api.multi'
