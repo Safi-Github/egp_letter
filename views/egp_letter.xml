@@ -59,18 +59,6 @@
         </field>
     </record>
 
-    //all the search views
-    <record id="egp_letter_outbox_search_view" model="ir.ui.view">
-        <field name="name">egp.letter.outbox.search.view</field>
-        <field name="model">egp.letter.outbox</field>
-        <field name="arch" type="xml">
-            <search>
-                <field name="name" string="Subject"
-                       filter_domain="['|', ('name','ilike',self),('serial_number','ilike',self)]"/>
-            </search>
-        </field>
-    </record>
-
     //all tree views
     <record id="egp_letter_inbox_tree_view" model="ir.ui.view">
         <field name="name">egp.letter.inbox.tree.view</field>
