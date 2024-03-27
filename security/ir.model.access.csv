@@ -1,7 +1,5 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_egp_letter,egp.letter,model_egp_letter,base.group_user,1,1,1,1
 access_egp_letter_outbox,egp.letter.outbox,model_egp_letter_outbox,base.group_user,1,1,1,1
 access_egp_letter_inbox,egp.letter.inbox,model_egp_letter_inbox,base.group_user,1,1,1,1
-access_egp_letter_execution,egp.letter.execution,model_egp_letter_execution,base.group_user,1,1,1,1
-access_call_window_action,call_window_action,model_call_window_action,base.group_user,1,1,1,1
+
 

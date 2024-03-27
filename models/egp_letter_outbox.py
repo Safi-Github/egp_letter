@@ -14,8 +14,6 @@ class EgpLetterOutbox(models.Model):
     #                                        default=lambda self: self.env.user.department_id.id, required=True)
     state = fields.Selection([('draft', 'Draft'), ('send', 'Sent')],  default='draft')
 
-    execution_ids = fields.One2many('egp.letter.execution', 'letter_id', string='Executions')
-
     def adding_record_to_inbox_model(self):
         employee = self.env['hr.employee'].search([('user_id', '=', self.env.user.id)], limit=1)
         print('the employee gotted id', employee.id)
@@ -34,12 +32,6 @@ class EgpLetterOutbox(models.Model):
             'content': self.content,
             # 'source_department_id': self.source_department_id.id,
             'state': 'receive',
-            'execution_ids': [(6, 0, self.execution_ids.ids)],  # Pass the IDs of the egp.letter.execution records
         })
         self.state = 'send'
         print("adding record to inbox model", self.state)
-
-    # def test(self):
-    #     print('Hi, This is the test function')
-    #     action = self.env.ref('egp_letter.action_egp_letter_inbox_tree_view').read()[0]
-    #     return action
